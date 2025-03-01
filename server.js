@@ -11,7 +11,7 @@ const PORT = process.env.PORT || 3000;
 
 const authKey = process.env.AUTH_KEY;
 const secretKey = process.env.SECRET_KEY;
-const userAgent = process.env.USER_AGENI;
+const userAgent = process.env.USER_AGENT;
 const apiEndpoint = process.env.API_ENDPOINT;
 
 app.use(express.static(path.join(__dirname, 'public'))); // using express to serve static webpage
@@ -26,14 +26,14 @@ function generateAuthHeaders() {
         'X-Auth-Key': authKey,
         'X-Auth-Date': apiHeaderTime.toString(),
         'Authorization': hash
-    }
+    };
 }
 
 // Search for podcasts
 app.get('/api/search', async (req, res) => {
     const query = req.query.q;
     if (!query) {
-        return res.status(400).json({ error: 'Query Parameter is required'} );
+        return res.status(400).json({ error: 'Query Parameter is required'});
     }
 
     const headers = generateAuthHeaders();
@@ -50,7 +50,7 @@ app.get('/api/search', async (req, res) => {
         } else {
             const rawText = await response.text();
             console.log('Raw Response:', rawText);
-            res.status(500).json({ error: 'Invalid response from API', rawText })
+            res.status(500).json({ error: 'Invalid response from API', rawText });
         }
     } catch (error) {
         console.error('Error fetching API:', error.message);
@@ -64,7 +64,7 @@ app.get('/api/episodes', async (req, res) => {
     const max = req.query.max;
 
     if (!feedId) {
-        return res.status(400).json({ error: 'Feed ID Parameter is required'} );
+        return res.status(400).json({ error: 'Feed ID Parameter is required'});
     }
 
     const headers = generateAuthHeaders();
@@ -81,7 +81,7 @@ app.get('/api/episodes', async (req, res) => {
         } else {
             const rawText = await response.text();
             console.log('Raw Response:', rawText);
-            res.status(500).json({ error: 'Invalid response from API', rawText })
+            res.status(500).json({ error: 'Invalid response from API', rawText });
         }
     } catch (error) {
         console.error('Error fetching API:', error.message);
