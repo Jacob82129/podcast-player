@@ -30,7 +30,7 @@ self.addEventListener('fetch', event => {
                         // Handle being offline
                     });
             })
-    )
+    );
 });
 
 // Activate event - clean up old caches
@@ -44,7 +44,7 @@ self.addEventListener('activate', event => {
                         return caches.delete(cache);
                     }
                 })
-            )
+            );
         })
-    )
+    );
 });
